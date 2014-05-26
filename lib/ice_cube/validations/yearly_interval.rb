@@ -3,7 +3,7 @@ module IceCube
   module Validations::YearlyInterval
 
     def interval(interval)
-      @interval = interval
+      @interval = Validations::IntervalValidator.validate(interval)
       replace_validations_for(:interval, [Validation.new(interval)])
       clobber_base_validations(:year)
     end
@@ -13,7 +13,7 @@ module IceCube
       attr_reader :interval
 
       def initialize(interval)
-        @interval = interval
+        @interval = Validations::IntervalValidator.validate(interval)
       end
 
       def type

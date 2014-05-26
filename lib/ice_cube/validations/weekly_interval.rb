@@ -5,7 +5,7 @@ module IceCube
   module Validations::WeeklyInterval
 
     def interval(interval, week_start = :sunday)
-      @interval = interval
+      @interval = Validations::IntervalValidator.validate(interval)
       @week_start = TimeUtil.wday_to_sym(week_start)
       replace_validations_for(:interval, [Validation.new(interval, week_start)])
       clobber_base_validations(:day)
@@ -21,7 +21,7 @@ module IceCube
       attr_reader :interval, :week_start
 
       def initialize(interval, week_start)
-        @interval = interval
+        @interval = Validations::IntervalValidator.validate(interval)
         @week_start = week_start
       end
 
